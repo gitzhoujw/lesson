@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!-- status=debug 可以查看log4j的装配过程 -->
+<configuration status="DEBUG" monitorInterval="10">
+
+    <properties>
+        <!-- 日志备份目录 -->
+        <property name="BACKUP_HOME">E:/tmp/logs-lesson</property>
+        <property name="PROJECT_NAME">lesson</property>
+    </properties>
+
+    <appenders>
+        <!-- 定义控制台输出 -->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="%highlight{%d{yyyy-MM-dd HH:mm:ss,SSS} [%c]-[%p] %m%n}" />
+
+        </Console>
+
+        <!-- 应用日志 -->
+        <RollingRandomAccessFile name="Applog" fileName="${BACKUP_HOME}/lesson.log" filePattern="${BACKUP_HOME}/lesson.%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%highlight{%d{yyyy-MM-dd HH:mm:ss,SSS} [%c]-[%p] %m%n}" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile
+                name="utilLog"
+                fileName="${BACKUP_HOME}/utils.log"
+                bufferedIO="false"
+                immediateFlush="true"
+                filePattern="${BACKUP_HOME}/utils.%d{yyyy-MM-dd}.log">
+
+<!--            <PatternLayout pattern="%highlight{%d {yyyy-MM-dd HH:mm:ss,SSS} [%c]-[%p] %m%n}" />-->
+
+            <PatternLayout pattern="%highlight{%d [%t] %-5level: %msg%n%throwable}{FATAL=white, ERROR=red, WARN=blue, INFO=black, DEBUG=green, TRACE=blue}" />
+
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="compLog" fileName="${BACKUP_HOME}/compLog.log" filePattern="${BACKUP_HOME}/compLog.%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%highlight{%d{yyyy-MM-dd HH:mm:ss,SSS} [%c]-[%p] %m%n}" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingRandomAccessFile>
+    </appenders>
+
+    <loggers>
+
+        <logger name="org.springframework" level="info" />
+
+        <logger name="edu.zhoujw.lesson.log4j2.util" level="info">
+            <appender-ref ref="utilLog" />
+        </logger>
+
+        <logger name="edu.zhoujw.lesson.log4j2.comp" >
+            <appender-ref ref="compLog" />
+        </logger>
+
+        <!-- Root Logger -->
+        <root level="debug" >
+            <appender-ref ref="Console" />
+            <appender-ref ref="Applog" />
+        </root>
+
+    </loggers>
+
+</configuration>
