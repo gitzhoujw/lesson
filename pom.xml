@@ -12,6 +12,7 @@
         <module>lesson-zk</module>
         <module>lesson-log4j2</module>
         <module>lesson-okhttp</module>
+        <module>lesson-httpclient</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -57,6 +58,13 @@
         <junit.version>4.12</junit.version>
 
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
