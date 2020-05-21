@@ -13,6 +13,7 @@
         <module>lesson-log4j2</module>
         <module>lesson-okhttp</module>
         <module>lesson-httpclient</module>
+        <module>lesson-disruptor</module>
     </modules>
     <packaging>pom</packaging>
 
